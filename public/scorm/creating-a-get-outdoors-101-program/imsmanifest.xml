@@ -1,0 +1,107 @@
+<?xml version="1.0" ?>
+<manifest identifier="O7pY8v2Gv7QWMrSVeZUDeg6X02P_G2IYF9iG4u4h" version="1"
+  xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+  xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd
+                      http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
+  <metadata>
+    <schema>ADL SCORM</schema>
+    <schemaversion>1.2</schemaversion>
+    <adlcp:location>metadata.xml</adlcp:location>
+  </metadata>
+  <organizations default="articulate_rise">
+      <organization identifier="articulate_rise">
+      <title>Creating a &#34;Get Outdoors&#34; 101 Program</title>
+      <item identifier="i1" identifierref="r1" isvisible="true">
+        <title>Creating a &#34;Get Outdoors&#34; 101 Program</title>
+        <adlcp:datafromlms>eyJjcHYiOiJGOWlHNHU0aCIsInJsZCI6ZmFsc2V9</adlcp:datafromlms>
+      </item>
+    </organization>
+  </organizations>
+  <resources>
+    <resource identifier="r1" type="webcontent" adlcp:scormtype="sco" href="scormdriver/indexAPI.html">
+      <!-- SCORMDRIVER STUFF -->
+      <file href="scormdriver/indexAPI.html" />
+      <file href="scormdriver/preloadIntegrity.js" />
+      <file href="scormdriver/driverOptions.js" />
+      <file href="scormdriver/AICCComm.html" />
+      <file href="scormdriver/auto-scripts/AutoBookmark.js" />
+      <file href="scormdriver/auto-scripts/AutoCompleteSCO.js" />
+      <file href="scormdriver/auto-scripts/CourseExit.js" />
+      <file href="scormdriver/blank.html" />
+      <file href="scormdriver/goodbye.html" />
+      <file href="scormdriver/scormdriver.js" />
+      <file href="scormdriver/browsersniff.js" />
+
+      <!-- RUNTIME COMMON STUFF -->
+      <file href="scormcontent/index.html" />
+
+      
+        <file href="scormcontent/lib/fonts/icomoon.ttf"/>
+        <file href="scormcontent/lib/fonts/icomoon.woff"/>
+
+        <file href="scormcontent/lib/icomoon.css"/>
+        <file href="scormcontent/lib/player-0.0.11.min.js"/>
+        <file href="scormcontent/lib/lzwcompress.js"/>
+      
+
+      <!-- FRONTEND BUNDLE ASSETS -->
+      <file href="scormcontent/lib/rise/f0d4eaeb.js" />
+<file href="scormcontent/lib/rise/472f74c2.css" />
+<file href="scormcontent/lib/rise/e34bf6bb.js" />
+<file href="scormcontent/lib/rise/ed54d4be.css" />
+<file href="scormcontent/lib/rise/b33c2507.js" />
+<file href="scormcontent/lib/rise/92e0d0dc.js" />
+<file href="scormcontent/lib/rise/daebe3b0.js" />
+<file href="scormcontent/lib/mondrian/entry.js" />
+<file href="scormcontent/lib/mondrian/cee15070.js" />
+<file href="scormcontent/lib/mondrian/493e3567.js" />
+<file href="scormcontent/lib/mondrian/08509366.js" />
+<file href="scormcontent/lib/mondrian/c16e7dd3.js" />
+<file href="scormcontent/lib/mondrian/d7134136.js" />
+<file href="scormcontent/lib/mondrian/56ed4fc1.js" />
+<file href="scormcontent/lib/mondrian/617890ed.js" />
+<file href="scormcontent/lib/mondrian/b1be0899.js" />
+
+
+      <!-- RUNTIME CONTENT STUFF -->
+      <file href="scormcontent/lib/fonts/Lato-Black.woff" />
+<file href="scormcontent/lib/fonts/Lato-Italic.woff" />
+<file href="scormcontent/lib/fonts/Lato-Bold.woff" />
+<file href="scormcontent/lib/fonts/Lato-Regular.woff" />
+<file href="scormcontent/lib/fonts/Lato-Light.woff" />
+<file href="scormcontent/lib/fonts/Merriweather-Black.woff" />
+<file href="scormcontent/lib/fonts/Merriweather-Italic.woff" />
+<file href="scormcontent/lib/fonts/Merriweather-Bold.woff" />
+<file href="scormcontent/lib/fonts/Merriweather-Regular.woff" />
+<file href="scormcontent/lib/fonts/Merriweather-Light.woff" />
+<file href="scormcontent/assets/ecZfY74geil4LMpB.jpg" />
+<file href="scormcontent/assets/Screenshot%202024-06-04%20at%202.12.59%E2%80%AFPM.jpg" />
+<file href="scormcontent/assets/Indiana%20Lake.jpg" />
+<file href="scormcontent/assets/P1010510.jpg" />
+<file href="scormcontent/assets/stock-image.jpg" />
+<file href="scormcontent/assets/ydQW3M/quote_background.jpg" />
+<file href="scormcontent/assets/DSC01068.jpg" />
+<file href="scormcontent/assets/Lieber%20Reservoirs5_06-09.jpg" />
+<file href="scormcontent/assets/6aHIbL/stock-image.jpg" />
+<file href="scormcontent/assets/Indiana%20DNR%20Programming%20Planning%20Page.pdf" />
+<file href="scormcontent/assets/Indiana%20Dunes%20Explorers%20Day%20Camp%20Mt%20Tom%202018.jpg" />
+<file href="scormcontent/assets/G-Ll2Q/stock-image.jpg" />
+<file href="scormcontent/assets/Brown%20County%20Bob%20Vollmer%20Sign%20Dedication%20Interpretive%20Sign%20and%20Trailhead%202017.jpg" />
+<file href="scormcontent/assets/saLztq/stock-image.jpg" />
+<file href="scormcontent/assets/jl6rHt/stock-image.jpg" />
+<file href="scormcontent/assets/DSC01009.jpg" />
+<file href="scormcontent/assets/2010%20HOE%20Student%20Day%20115.jpg" />
+<file href="scormcontent/assets/DSC00501.jpg" />
+<file href="scormcontent/assets/2010%20HOE%20Student%20Day%20109.jpg" />
+<file href="scormcontent/assets/Checklist%20for%20Guided%20Outdoor%20Participation.pdf" />
+<file href="scormcontent/assets/gN_iAK/stock-image.jpg" />
+<file href="scormcontent/assets/3r3b21/stock-image.jpg" />
+<file href="scormcontent/assets/1L2OVS/stock-image.jpg" />
+
+      <file href="scormcontent/locales/und.js" />
+
+    </resource>
+  </resources>
+</manifest>

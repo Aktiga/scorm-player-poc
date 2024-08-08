@@ -5,19 +5,31 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@babel/runtime':
+    specifier: ^7.25.0
+    version: 7.25.0
   next:
     specifier: 14.2.5
     version: 14.2.5(react-dom@18.3.1)(react@18.3.1)
+  pipwerks-scorm-api-wrapper:
+    specifier: ^0.1.2
+    version: 0.1.2
   react:
     specifier: ^18
     version: 18.3.1
   react-dom:
     specifier: ^18
     version: 18.3.1(react@18.3.1)
+  react-scorm-provider:
+    specifier: ^0.2.4
+    version: 0.2.4(react-dom@18.3.1)(react@18.3.1)
+  scorm-again:
+    specifier: ^1.7.1
+    version: 1.7.1
 
 devDependencies:
   '@types/node':
-    specifier: ^20
+    specifier: ^20.14.14
     version: 20.14.14
   '@types/react':
     specifier: ^18
@@ -47,6 +59,13 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
     dev: true
+
+  /@babel/runtime@7.25.0:
+    resolution: {integrity: sha512-7dRy4DwXwtzBrPbZflqxnvfxLF8kdZXPkhymtDeFoFqE6ldzjQFgYTtYIFARcLEYDrqfBfYcZt1WqFxRoyC9Rw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.1
+    dev: false
 
   /@eslint-community/eslint-utils@4.4.0(eslint@8.57.0):
     resolution: {integrity: sha512-1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==}
@@ -1997,7 +2016,6 @@ packages:
   /object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /object-hash@3.0.0:
     resolution: {integrity: sha512-RSn9F68PjH9HqtltsSnqYC1XXoWe9Bju5+213R98cNGttag9q9yAOTzdbsqvIa7aNm5WffBZFpWYr2aWrklWAw==}
@@ -2157,6 +2175,12 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /pipwerks-scorm-api-wrapper@0.1.2:
+    resolution: {integrity: sha512-25T7MzC4oPMh1324TkogILXw+W7qkyLeeKfBF0lguQEDd1q8gVd6+YAqlboEDDoLArt57F540QLEcW9SpM8xyw==}
+    dependencies:
+      scorm-api-wrapper: github.com/pipwerks/scorm-api-wrapper/82e455b4032ee08febf64d2fa2bf1aacaebaa446
+    dev: false
+
   /pirates@4.0.6:
     resolution: {integrity: sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==}
     engines: {node: '>= 6'}
@@ -2257,7 +2281,6 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
-    dev: true
 
   /punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
@@ -2267,6 +2290,10 @@ packages:
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
+
+  /react-autobind@1.0.6:
+    resolution: {integrity: sha512-+BTreuQUUGv1Tv4GbcFNk+1L8U60ZSdxLUs3OVUPsShzxLFYcTYcNf2wzMt3GEU4iFA8Px7SpofpX+uiL03QyQ==}
+    dev: false
 
   /react-dom@18.3.1(react@18.3.1):
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
@@ -2280,7 +2307,19 @@ packages:
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
-    dev: true
+
+  /react-scorm-provider@0.2.4(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-kZ5v/4jYXinATrf8PsKuZGWSHDUfl7b84sEjMBBTHKFFcBypMXbHW34WiN6FhiNAAEsMWZ/X2ZF9lCPvWabR+g==}
+    peerDependencies:
+      react: ^16.4.2
+      react-dom: ^16.4.2
+    dependencies:
+      pipwerks-scorm-api-wrapper: 0.1.2
+      prop-types: 15.8.1
+      react: 18.3.1
+      react-autobind: 1.0.6
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
 
   /react@18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
@@ -2314,6 +2353,10 @@ packages:
       globalthis: 1.0.4
       which-builtin-type: 1.1.4
     dev: true
+
+  /regenerator-runtime@0.14.1:
+    resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
+    dev: false
 
   /regexp.prototype.flags@1.5.2:
     resolution: {integrity: sha512-NcDiDkTLuPR+++OCKB0nWafEmhg/Da8aUPLPMQbK+bxKKCm1/S5he+AqYa4PlMCVBalb4/yxIRub6qkEx5yJbw==}
@@ -2394,6 +2437,10 @@ packages:
     resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
     dependencies:
       loose-envify: 1.4.0
+    dev: false
+
+  /scorm-again@1.7.1:
+    resolution: {integrity: sha512-sBmjowUsyVsPHHRGtF86o8xrLLtnQOu6a7JG2S4a2sppoMVzcZIfWn/axveYwsoYFabFsHnmdU9lOTxxEh7gNA==}
     dev: false
 
   /semver@6.3.1:
@@ -2886,3 +2933,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  github.com/pipwerks/scorm-api-wrapper/82e455b4032ee08febf64d2fa2bf1aacaebaa446:
+    resolution: {tarball: https://codeload.github.com/pipwerks/scorm-api-wrapper/tar.gz/82e455b4032ee08febf64d2fa2bf1aacaebaa446}
+    name: scorm-api-wrapper
+    version: 1.1.20160322
+    dev: false

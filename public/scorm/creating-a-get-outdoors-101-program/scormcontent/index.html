@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+
+    <title>Creating a &#34;Get Outdoors&#34; 101 Program</title>
+
+    <link type="text/css" rel="stylesheet" href="lib/icomoon.css">
+    <script type="text/javascript" src="lib/player-0.0.11.min.js"></script>
+    <script type="text/javascript" src="lib/lzwcompress.js"></script>
+
+    <!-- Resize Hack -->
+    <script type="text/javascript">
+      window.resizeTo(screen.width, screen.height);
+    </script>
+    
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script id="__ENTRY__" type="application/json">
+      {".js":["rise/f0d4eaeb.js"]}
+    </script>
+
+    <script id="__REMOTE_ENTRIES__" type="application/json">
+      {"mondrian":{".js":["mondrian/entry.js"]}}
+    </script>
+
+    <script>
+      (function() {
+        const jsonp = {}
+
+        function loadModule(manifest) {
+          const p = []
+
+          if (manifest['.css'] != null) {
+            for (var idx = 0; idx < manifest['.css'].length; idx++) {
+              p.push(new Promise((resolve, reject) => {
+                var link = document.createElement('link')
+                link.onload = resolve
+                link.onerror = reject
+                link.rel = 'stylesheet'
+                link.href = 'lib/' + manifest['.css'][idx]
+                document.body.appendChild(link)
+              }))
+            }
+          }
+
+          if (manifest['.js'] != null) {
+            for (var idx = 0; idx < manifest['.js'].length; idx++) {
+              p.push(new Promise((resolve, reject) => {
+                var script = document.createElement('script')
+                script.onload = resolve
+                script.onerror = reject
+                script.src = 'lib/' + manifest['.js'][idx]
+                document.body.appendChild(script)
+              }))
+            }
+          }
+
+          return Promise.all(p)
+        }
+
+        function deserialize(str) {
+          const buffer = Uint8Array.from(atob(str), c => c.charCodeAt(0))
+          const json = new TextDecoder().decode(buffer)
+          const result = JSON.parse(json)
+          return result
+        }
+
+        function __loadEntry() {
+          return loadModule(JSON.parse(document.getElementById('__ENTRY__').textContent))
+        }
+
+        function __loadRemoteEntry(name) {
+          const manifest = JSON.parse(document.getElementById('__REMOTE_ENTRIES__').textContent)
+          if (manifest[name] == null) throw new Error(`Missing manifest for remote entry "${name}".`)
+          return loadModule(manifest[name])
+        }
+        
+        async function __loadJsonp(id, path) {
+          try {
+            return await new Promise((resolve, reject) => {
+              try {
+                jsonp[id] = resolve
+                const script = document.createElement('script')
+                script.onerror = reject
+                script.src = `./${path}`
+                document.head.appendChild(script)
+              } catch (err) {
+                reject(err)
+              }
+            })
+          } finally {
+            delete jsonp[id]
+          }
+        }
+
+        function __resolveJsonp(id, data) {
+          const resolve = jsonp[id]
+          if (typeof resolve !== 'function') {
+            throw new Error(`Could not load JSONP "${id}"`)
+          }
+          resolve(data)
+        }
+
+        async function __fetchCourse(name) {
+          name = name == null ? window.i18n.default : name
+          if (!window.i18n.available.includes(name)) {
+            console.warn(`Could not load locale "${name}"`)
+            name = window.i18n.available[0]
+          }
+          const encoded = await __loadJsonp(`course:${name}`, `locales/${name}.js`)
+          const courseData = deserialize(encoded)
+          return courseData
+        }
+
+        window.__loadEntry = __loadEntry
+        window.__loadRemoteEntry = __loadRemoteEntry
+        window.__loadJsonp = __loadJsonp
+        window.__resolveJsonp = __resolveJsonp
+        window.__fetchCourse = __fetchCourse
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+  (function(root) {
+    window.i18n = {"available":["und"],"default":"und"};
+    window.partnerContent = [];
+
+    var quizId = null;
+    var storylineId = null;
+    var completionPercentage = 100;
+    var reporting = 'completed-incomplete';
+
+    var LMSProxySelections = [
+      'CommitData',
+      'ConcedeControl', // Gives control back to the LMS
+      'CreateResponseIdentifier', // Create question response
+      'Finish',
+      'GetDataChunk',  // Retrieve stringified object with lesson progress
+      'GetStatus', // Get Current Status
+      'MatchingResponse', // Interaction - Question Type
+      'RecordFillInInteraction', // Interaction - Question Type
+      'RecordMatchingInteraction', // Interaction - Question Type
+      'RecordMultipleChoiceInteraction', // Interaction - Question Type
+      'ResetStatus', // Reset the Status
+      'SetBookmark',   // Set identifier for bookmark
+      'SetDataChunk',  // Set a stringified object with lesson progress
+      'SetFailed', // Tell LMS user Failed course
+      'SetPassed', // Tell LMS user Passed the course
+      'SetReachedEnd', // Tell LMS user completed course
+      'SetScore', // Report Users Score to the LMS (for Pass and fail)
+      'WriteToDebug',
+    ];
+
+    function HookCommit() {
+  LMSProxyFuncs.WriteToDebug('Commit strategy detected a reason to commit! Forcing a commit to the LMS.');
+  LMSProxyFuncs.CommitData();
+}
+
+const ProxyHooks = {
+
+  'SetFailed': HookCommit,
+  'SetPassed': HookCommit,
+  'SetReachedEnd': HookCommit,
+  'SetScore': HookCommit,
+
+  'RecordMultipleChoiceInteraction': HookCommit,
+  'RecordMatchingInteraction': HookCommit,
+  'RecordFillInInteraction': HookCommit,
+  'MatchingResponse': HookCommit,
+};
+
+function hookProxy(funcName) {
+  if(ProxyHooks[funcName]) {
+    return ProxyHooks[funcName]();
+  }
+
+  return;
+}
+
+var LMSProxyFuncs = pick(LMSProxySelections, window.parent, Function.prototype);
+
+function noAPIFunction (funcName) {
+  return function () {
+    console.log('Warning: Course was unable to find the LMS API for ' + funcName + '. Course may have been launched from scormcontent/index.html, or the course package is not within an LMS. Saving of student data will not occur.');
+  }
+}
+
+var initProxy = function() {
+  return Object.keys(LMSProxyFuncs).reduce(function(newProxy, funcName) {
+    if (LMSProxyFuncs[funcName].toString().length < 35) {
+      noAPIFunction(funcName)();
+
+      if (funcName === 'cmi5') {
+        newProxy['cmi5'] = {
+          getMasteryScore: noAPIFunction('cmi5.getMasteryScore')
+        }
+      } else {
+        newProxy[funcName] = noAPIFunction(funcName);
+      }
+      
+      return newProxy;
+    }
+
+    if (arrayHas(funcName, ['CreateResponseIdentifier', 'MatchingResponse', 'cmi5'])) {
+      newProxy[funcName] = LMSProxyFuncs[funcName];
+      return newProxy;
+    }
+
+    newProxy[funcName] = function () {
+      var args = ([]).slice.call(arguments);
+      var result = LMSProxyFuncs[funcName].apply(null, args);
+
+      hookProxy(funcName);
+
+      return result;
+    }
+    return newProxy;
+  }, {})
+}
+
+
+    var LMSProxy = initProxy();
+
+    var cache = getLMSData();
+
+    function debounce(fn, delay) {
+  var timer = null;
+
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+function compress(data) {
+  try {
+    return JSON.stringify({
+      v: 2,
+      d: lzwCompress.pack(JSON.stringify(data)),
+      cpv: "F9iG4u4h"
+    });
+  } catch(e) {
+    return '';
+  }
+}
+
+function decompress(stringData) {
+  try {
+    const data = JSON.parse(stringData);
+
+    return data.d
+      ? JSON.parse(lzwCompress.unpack(data.d))
+      : data;
+  } catch(e) {
+    return {};
+  }
+}
+
+function assign(target) {
+  if (target === undefined || target === null) {
+    throw new TypeError('assign: Cannot convert undefined or null to object');
+  }
+
+  var output = Object(target);
+
+  for (var index = 1; index < arguments.length; index++) {
+    var source = arguments[index];
+    if (source !== undefined && source !== null) {
+      for (var nextKey in source) {
+        if (source.hasOwnProperty(nextKey)) {
+          output[nextKey] = source[nextKey];
+        }
+      }
+    }
+  }
+  return output;
+}
+
+function identity(value) {
+  return value;
+}
+
+function bookmark(id) {
+  var url = 'index.html#/lessons/' + id;
+
+  LMSProxy.SetBookmark(url, '');
+}
+
+function completeOut(passed, reportParam) {
+  var reportType = reportParam || reporting;
+
+  if(passed) {
+    switch(reportType) {
+      case 'completed-incomplete':
+      case 'completed-failed':
+        LMSProxy.ResetStatus();
+        LMSProxy.SetReachedEnd();
+        break;
+
+      case 'passed-incomplete':
+      case 'passed-failed':
+        LMSProxy.SetPassed();
+        LMSProxy.SetReachedEnd();
+        break;
+    }
+  } else {
+    switch(reportType) {
+      case 'passed-failed':
+      case 'completed-failed':
+        if(!isPassed()) {
+          LMSProxy.SetFailed();
+        }
+        break;
+    }
+  }
+}
+
+var setDataChunk = debounce(function(data) {
+  LMSProxy.SetDataChunk(data);
+}, 1000);
+
+function concatLMSData(data) {
+  assign(cache, data);
+  setDataChunk(compress(cache));
+}
+
+function exit() {
+  LMSProxy.ConcedeControl();
+}
+
+function finish(totalProgress) {
+  if (
+    quizId === null &&
+    storylineId === null &&
+    completionPercentage != undefined &&
+    totalProgress >= completionPercentage
+  ) {
+    completeOut(true);
+  }
+}
+
+function finishQuiz(passed, score, id) {
+  if (id == quizId) {
+    reportScore(score);
+    completeOut(passed);
+  }
+}
+
+function finishStoryline(id, passed, isQuiz, score) {
+  if (id == storylineId) {
+    if (isQuiz) {
+      reportScore(score);
+      completeOut(passed, 'passed-failed');
+    } else {
+      completeOut(passed);
+    }
+  }
+}
+
+function stripHtml(title) {
+  return title.replace(/<(?:.|\n)*?>/gm, '');
+}
+
+function shorten(title) {
+  return title.charAt(0);
+}
+
+function buildResponseIdentifier(response) {
+  var title = stripHtml(response.title);
+  return LMSProxy.CreateResponseIdentifier(shorten(title), title);
+}
+
+function buildMatchingResponse(response) {
+  var sourceTitle = stripHtml(response.source.title);
+  var targetTitle = stripHtml(response.target.title);
+
+  var source =
+    LMSProxy.CreateResponseIdentifier(shorten(sourceTitle), sourceTitle);
+  var target =
+    LMSProxy.CreateResponseIdentifier(shorten(targetTitle), targetTitle);
+
+  return new LMSProxy.MatchingResponse(source, target);
+}
+
+function cleanTitle(title, maxSize) {
+  return title.substr(0, maxSize || 20).replace(/\s/g, '_');
+}
+
+function titleToId(quiz, question, attempts) {
+  return cleanTitle(quiz, 20) + '_' + cleanTitle(question, 230) + '_' + attempts.toString().substr(0,3);
+}
+
+function normalizeResult(correct) {
+  return correct
+    ? window.parent.INTERACTION_RESULT_CORRECT
+    : window.parent.INTERACTION_RESULT_WRONG;
+}
+
+function reportAnswer(data) {
+  var recorder = Function.prototype;
+  var response;
+  var correctResponses;
+
+  var isCorrect = normalizeResult(data.isCorrect);
+  var latency = data.latency;
+  var title = data.questionTitle;
+  var weighting = 1;
+  var strId = titleToId(data.quizTitle, title, data.retryAttempts);
+
+  switch (data.type) {
+    case 'MULTIPLE_CHOICE':
+    case 'MULTIPLE_RESPONSE':
+      response = data.response.map(buildResponseIdentifier);
+      correctResponses = data.correctResponse.map(buildResponseIdentifier);
+      recorder = LMSProxy.RecordMultipleChoiceInteraction;
+      break;
+
+    case 'FILL_IN_THE_BLANK':
+      response = data.response;
+      correctResponses = data.correctResponse;
+      recorder = LMSProxy.RecordFillInInteraction;
+      break;
+
+    case 'MATCHING':
+      response = data.response.map(buildMatchingResponse);
+      correctResponses = data.correctResponse.map(buildMatchingResponse);
+      recorder = LMSProxy.RecordMatchingInteraction;
+      break;
+  }
+
+  recorder(
+    strId,
+    response,
+    isCorrect,
+    correctResponses,
+    title,
+    weighting,
+    latency,
+    0
+  );
+}
+
+function getLMSData() {
+  var data = null;
+
+  if(!cache) {
+    data = LMSProxy.GetDataChunk();
+
+    var result = data
+      ? decompress(data)
+      : {};
+
+    return result;
+  }
+
+  return assign({}, cache);
+}
+
+function getProgress(initialProgress) {
+  var decodeCourseProgress =
+    root.Rise.decodeCourseProgress;
+
+  var progress = assign({}, {
+    progress: { lessons: {} }
+  }, getLMSData()).progress;
+
+  if(initialProgress) {
+    return decodeCourseProgress(initialProgress, progress);
+  }
+
+  return progress;
+}
+
+function isExport() {
+  return true;
+}
+
+function isPassed() {
+  return LMSProxy.GetStatus() === window.parent.LESSON_STATUS_PASSED;
+}
+
+function pick(keys, obj, def) {
+  return keys.reduce(function(memo, key) {
+    if(obj[key] === undefined) {
+      if(def !== undefined) {
+        memo[key] = def;
+      }
+    } else {
+      memo[key] = obj[key];
+    }
+
+    return memo;
+  }, {});
+}
+
+function reportScore(score) {
+  var highScore = Math.max(getLMSData().score || 0, score);
+  concatLMSData({ score: highScore });
+
+  LMSProxy.SetScore(highScore, 100, 0);
+}
+
+function resolvePath(path) {
+  return ('assets/').concat(path);
+}
+
+function resolveFontPath(font) {
+  return ('lib/fonts/').concat(font.key.split('/').reverse()[0]);
+}
+
+function setLessonProgress(lessonProgress) {
+  var encodeLessonProgress =
+    root.Rise.encodeLessonProgress;
+
+  var currentProgress = getProgress();
+
+  var lessons = assign(
+    {},
+    currentProgress.lessons,
+    encodeLessonProgress(lessonProgress)
+  );
+
+  var progress = assign({}, currentProgress, { lessons: lessons });
+
+  concatLMSData({ progress: progress });
+}
+
+function setCourseProgress(courseProgress) {
+  var encodeCourseProgress =
+    root.Rise.encodeCourseProgress;
+
+  var currentProgress = getProgress();
+
+  var progress = assign(
+    {},
+    currentProgress,
+    encodeCourseProgress(courseProgress)
+  );
+
+  concatLMSData({ progress: progress });
+}
+
+function getMasteryScore(payload) {
+  return payload.passingScore;
+}
+
+function arrayHas(val, arr) {
+  return !!(~(arr.indexOf(val)))
+}
+
+function fetchAvailableLocales() {
+  return window.i18n
+}
+
+root.Rise = {
+  completeLessons: identity,
+  decodeCourseProgress: identity,
+  encodeCourseProgress: identity,
+  encodeLessonProgress: identity
+};
+
+root.Runtime = {
+  bookmark: bookmark,
+  exit: exit,
+  fetch: window.__fetchCourse,
+  fetchAvailableLocales: fetchAvailableLocales,
+  finish: finish,
+  finishQuiz: finishQuiz,
+  finishStoryline: finishStoryline,
+  getMasteryScore: getMasteryScore,
+  getProgress: getProgress,
+  isExport: isExport,
+  reportAnswer: reportAnswer,
+  resolveFontPath: resolveFontPath,
+  resolvePath: resolvePath,
+  setCourseProgress: setCourseProgress,
+  setLessonProgress: setLessonProgress
+};
+
+  }(window));
+</script>
+
+    
+    <script>__loadEntry()</script>
+    
+  </body>
+</html>
