@@ -1,14 +1,18 @@
 "use client";
-import ScormPlayer from "./components/scormPlayer";
 
-export default function Home() {
-  const scormPath =
-    "/scorm/creating-a-get-outdoors-101-program/scormcontent/index.html"; // Adjust this path
+import XAPIContent from "./components/xApiContent";
+
+const XAPICoursePage = () => {
+  const contentUrl =
+    "/xapi/creating-a-get-outdoors-101-program-xapi/index.html";
+  const userId = "user123"; // Replace with actual user ID from your auth system
+
   return (
-    <div className="h-screen w-screen">
-      <h1>SCORM Player in Next.js</h1>
-      {/* <SCORMPlayer scormPath={scormPath} /> */}
-      <ScormPlayer src={scormPath} />
+    <div>
+      <h1>xAPI Course</h1>
+      <XAPIContent contentUrl={contentUrl} userId={userId} />
     </div>
   );
-}
+};
+
+export default XAPICoursePage;
