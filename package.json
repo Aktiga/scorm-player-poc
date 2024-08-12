@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.25.0",
+    "@xapi/xapi": "^2.2.8",
+    "axios": "^1.7.3",
     "next": "14.2.5",
     "pipwerks-scorm-api-wrapper": "^0.1.2",
     "react": "^18",

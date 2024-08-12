@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<tincan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://projecttincan.com/tincan.xsd">
+  <activities>
+    <activity id="http://O7pY8v2Gv7QWMrSVeZUDeg6X02P_G2IY_rise" type="http://adlnet.gov/expapi/activities/course">
+      <name lang="en-US">Creating a &#34;Get Outdoors&#34; 101 Program</name>
+      <description lang="en-US"></description>
+      <launch lang="en-US">index.html</launch>
+    </activity>
+      <activity id="http://O7pY8v2Gv7QWMrSVeZUDeg6X02P_G2IY_rise/3-QVmteDBxPYQgrwsShunORTm_BFqZzm" type="http://adlnet.gov/expapi/activities/module">
+      <name lang="en-US">Introduction/blocks</name>
+      <description lang="en-US"></description>
+    </activity>
+          <activity id="http://O7pY8v2Gv7QWMrSVeZUDeg6X02P_G2IY_rise/8P3C2EHib04a-KKI9VkMtOvEPbvZAHba" type="http://adlnet.gov/expapi/activities/module">
+      <name lang="en-US">Principles /blocks</name>
+      <description lang="en-US"></description>
+    </activity>
+          <activity id="http://O7pY8v2Gv7QWMrSVeZUDeg6X02P_G2IY_rise/WBEEFJIYcjZ_cBu85WRsbJ30nQGTW8jJ" type="http://adlnet.gov/expapi/activities/module">
+      <name lang="en-US">Your Event/blocks</name>
+      <description lang="en-US"></description>
+    </activity>
+          <activity id="http://O7pY8v2Gv7QWMrSVeZUDeg6X02P_G2IY_rise/jDnZsO9FXUEXCcHw3bdI_XHK6hVzEbJ3" type="http://adlnet.gov/expapi/activities/module">
+      <name lang="en-US">Outreach &amp; Invitation/blocks</name>
+      <description lang="en-US"></description>
+    </activity>
+          <activity id="http://O7pY8v2Gv7QWMrSVeZUDeg6X02P_G2IY_rise/FRJ3HSmbzOrQhMNZjfFM2HWWD2yrwzc1" type="http://adlnet.gov/expapi/activities/module">
+      <name lang="en-US">Conclusion/blocks</name>
+      <description lang="en-US"></description>
+    </activity>
+        </activities>
+</tincan>
